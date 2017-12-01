@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-
-<html>
-<meta charset="utf-8">
-    <head>
-        <title>ログイン</title>
-    </head>
-    <body>
-        <form action="session1.php" method = "post">
-            ユーザーネーム<input type ="text" name="username" value = ""><br />
-            パスワード<input type = "text" name="pass" value = ""><br />
-            <input type="submit" name ="login" value = "ログイン">
-        </form>
-    </body>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン画面</title>
+</head>
+<body>
+<h1>ログイン</h1>
+<form action="login.php" method="POST">
+<p>メールアドレス：<input type="text" required autofocus pattern="[a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$"   name="email" value=""></p>
+<p>パスワード：<input type="password" minlength = "6" required autofocus pattern="[a-z0-9]" name="password" value=""></p>
+<p><input type="submit" value="ログイン"> <a href="signup.php">新規登録はこちら！</a></p>
+</form>
+</body>
 </html>

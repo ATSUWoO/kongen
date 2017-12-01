@@ -23,6 +23,10 @@
         <button type="submit" name="button" value ='send'>送信</button>
       </select>
     </form>
-
+    <div >
+      <?php
+        echo $sample;
+       ?>
+    </div>
   </body>
 </html>
