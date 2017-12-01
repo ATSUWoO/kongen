@@ -23,5 +23,13 @@ $password = $_POST['password'];
 
 $err = array();
 
+if (empty($err)) {
+      $_SESSION['me'] = $me;
+      header("Location:./index.php");
+      exit;
+   }
+
+
+
 
 ?>
