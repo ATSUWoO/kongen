@@ -1,35 +1,47 @@
 <?php
 
 require_once('config.php');
-require_once('connect_db.php');
 
+ // セッション開始
 session_start();
-
-if (!empty($_SESSION['me'])) {
-    header('Location: '.SITE_URL);
-    exit;
-}
-
-function getUser($email, $password, $dbh) {
-    $sql = "select * from users where email = :email and password = :password limit 1";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute(array(":email"=>$email, ":password"=>getSha1Password($password)));
-    $user = $stmt->fetch();
-    return $user ? $user : false;
-}
-
-$email = $_POST['email'];
+ // 既にログインしている場合にはメインページに遷移
+ if (isset($_SESSION["USERID"])) {
+header('Location: index.html');
+ exit;
+ }
+$db['host'] = 'localhost';
+$db['user'] = 'root';
+$db['pass'] = 'root';
+$db['dbname'] = 'testData';
+$error = '';
+ // ログインボタンが押されたら
+ if (isset($_POST['login'])) {
+ if (empty($_POST['username'])) {
+$error = 'ユーザーIDが未入力です。';
+ } else if (empty($_POST['password'])) {
+$error = 'パスワードが未入力です。';
+ }
+ if (!empty($_POST['username']) && !empty($_POST['password'])) {
+$username = $_POST['username'];
+$dsn = sprintf('mysql:dbname = sample_db; host=localhost;port = 8889; charset=utf8', $db['host'], $db['dbname']);
+ try {
+$pdo = new PDO($dsn, $db['user'], $db['pass'], array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+$stmt = $pdo->prepare('SELECT * FROM user WHERE name = ?');
+$stmt->execute(array($username));
 $password = $_POST['password'];
-
-$err = array();
-
-if (empty($err)) {
-      $_SESSION['me'] = $me;
-      header("Location:./index.php");
-      exit;
-   }
-
-
-
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+ if (password_verify($password, $result['password'])) {
+$_SESSION['USERID'] = $username;
+header('Location: main.php');
+ exit();
+ } else {
+$error = 'ユーザーIDあるいはパスワードに誤りがあります。';
+ }
+ } catch (PDOException $e) {
+echo $e->getMessage();
+ }
+ }
+ }
+?>
 
 ?>
