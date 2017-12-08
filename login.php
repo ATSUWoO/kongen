@@ -34,7 +34,7 @@ $stmt->execute(array($email));
 $password = $_POST['password'];
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
- if (strcmp($password ,$result[password] ) == 0 )  {
+ if (password_verify($password, $result[password]))  {
 $_SESSION['email'] = $email;
 header('Location: index.html');
  exit();
