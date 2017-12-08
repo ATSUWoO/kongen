@@ -15,9 +15,6 @@ $db['dbname'] = 'sample_db';
 $error = '';
  // ログインボタンが押されたら
 
- if (isset($_POST['login'])) {
-
-
  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
  if (empty($_POST['email'])) {
@@ -26,31 +23,26 @@ $error = 'ユーザーIDが未入力です。';
 $error = 'パスワードが未入力です。';
  }
  if (!empty($_POST['email']) && !empty($_POST['password'])) {
-$username = $_POST['email'];
-
-$dsn = sprintf('mysql:dbname = sample_db; host=localhost;port = 8889; charset=utf8', $db['host'], $db['dbname']);
+$email = $_POST['email'];
 
 $dsn = sprintf('mysql:dbname = sample_db; host= 127.0.0.1 ;port = 8889; charset=utf8');
 
  try {
-$pdo = new PDO($dsn, $db['user'], $db['pass'], array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-$stmt = $pdo->prepare('SELECT * FROM users WHERE name = ?');
-$sth->bindValue(1 , "kanimiso");
-$stmt->execute();
+$pdo = new PDO ( 'mysql:dbname=sample_db; host=localhost;port=8889; charset=utf8', 'root', 'root',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION) );
+$stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+$stmt->execute(array($email));
 $password = $_POST['password'];
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
- if (password_verify($password, $result['password'])) {
+
+ if (strcmp($password ,$result[password] ) == 0 )  {
 $_SESSION['email'] = $email;
-
 header('Location: index.html');
-
-header('Location: index　.html');
-
  exit();
+
  } else {
-$error = 'ユーザーIDあるいはパスワードに誤りがあります。';
+echo "ユーザーIDあるいはパスワードに誤りがあります。";
  }
- } catch (PDOException $e) {
+} catch (PDOException $e) {
 echo $e->getMessage();
  }
  }
