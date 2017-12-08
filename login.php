@@ -5,14 +5,9 @@ session_start();
  // 既にログインしている場合にはメインページに遷移
  if (isset($_SESSION["email"])) {
 header('Location: index.html');
- exit;
+ exit();
  }
 
-$db['host'] = '127.0.0.1';
-$db['user'] = 'root';
-$db['pass'] = 'root';
-$db['dbname'] = 'sample_db';
-$error = '';
  // ログインボタンが押されたら
 
  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
