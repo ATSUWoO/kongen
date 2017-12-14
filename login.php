@@ -1,12 +1,5 @@
 <?php
-
- // セッション開始
-session_start();
- // 既にログインしている場合にはメインページに遷移
- if (isset($_SESSION["email"])) {
-header('Location: index.html');
- exit;
- }
+require_once('session.php');
 
 $db['host'] = '127.0.0.1';
 $db['user'] = 'root';
@@ -40,11 +33,10 @@ $stmt->execute();
 $password = $_POST['password'];
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
  if (password_verify($password, $result['password'])) {
-$_SESSION['email'] = $email;
+$_SESSION['id'] = $result['user_id'];
 
 header('Location: index.html');
 
-header('Location: index　.html');
  exit();
  } else {
 $error = 'ユーザーIDあるいはパスワードに誤りがあります。';
@@ -54,4 +46,5 @@ echo $e->getMessage();
  }
  }
  }
+}
 ?>

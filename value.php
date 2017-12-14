@@ -1,7 +1,7 @@
 
 <?php
-
 // Ajax通信ではなく、直接URLを叩かれた場合はエラーメッセージを表示
+
 if (
     !(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
     && (!empty($_SERVER['SCRIPT_FILENAME']) && 'select.php' === basename($_SERVER['SCRIPT_FILENAME']))
@@ -35,26 +35,22 @@ try
     while ($row = $stmt->fetchObject())
     {
         $users[] = array(
-            'question' => $row->question
+            'q_id' => $row->q_id
+            ,'question' => $row->question
             ,'reason'=> $row->reason
             ,'value'=> $row->value
             );
     }
 
     $data = json_encode($users, JSON_UNESCAPED_UNICODE);
+
     print_r($data);
-    //file_put_contents("sample.txt", $res);
-    return $data;
 }
 catch (PDOException $e)
 {
     // 例外処理
     die('Error:' . $e->getMessage());
 }
-
-$eval = $_POST["eval"];
-echo "eval";
-
 
 
 ?>
