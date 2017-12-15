@@ -1,3 +1,7 @@
+<?php
+require_once('session.php');
+ ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +27,7 @@
       for (var i =0; i<data.length; i++) {
         target.innerHTML += "<tr><td>"+data[i].question+"</td><td>"+data[i].reason+"</td><td>"+data[i].value+"</td></tr>"
           }
-          
+
     }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
       alert('Error : ' + errorThrown);
       console.log(data);
