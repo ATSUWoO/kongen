@@ -1,7 +1,7 @@
+
 <?php
 
-require_once('session.php');
-
+// Ajax通信ではなく、直接URLを叩かれた場合はエラーメッセージを表示
 if (
     !(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
     && (!empty($_SERVER['SCRIPT_FILENAME']) && 'select.php' === basename($_SERVER['SCRIPT_FILENAME']))
@@ -9,21 +9,28 @@ if (
 {
     die ('このページは直接ロードしないでください。');
 }
+
 // 接続文字列 (PHP5.3.6から文字コードが指定できるようになりました)
 $dsn = 'mysql:dbname=sample_db;host = 127.0.0.1;charset=utf8';
+
 // ユーザ名
 $user = 'root';
+
 // パスワード
 $password = 'root';
+
 try
 {
     // nullで初期化
     $users = null;
+
     // DBに接続
     $dbh = new PDO($dsn, $user, $password);
+
     // 'users' テーブルのデータを取得する
-    $sql = 'select * from sample_tbl';
+    $sql = 'select * from sample_tbl order by q_id';
     $stmt = $dbh->query($sql);
+
     // 取得したデータを配列に格納
     while ($row = $stmt->fetchObject())
     {
@@ -32,10 +39,14 @@ try
             ,'question' => $row->question
             ,'reason'=> $row->reason
             ,'value'=> $row->value
+            ,'user_id' => $row->user_id
             );
     }
+
     $data = json_encode($users, JSON_UNESCAPED_UNICODE);
     print_r($data);
+    //file_put_contents("sample.txt", $res);
+    return $data;
 }
 catch (PDOException $e)
 {
@@ -43,5 +54,4 @@ catch (PDOException $e)
     die('Error:' . $e->getMessage());
 }
 
-
- ?>
+?>

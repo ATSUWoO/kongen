@@ -23,7 +23,7 @@ require_once('session.php');
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-        <button type="submit" name="button" value ='send'>送信</button>
+        <button type="submit" name="button" value ='send'>自己評価</button>
       </select>
     </form>
 

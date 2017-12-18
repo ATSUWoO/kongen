@@ -24,10 +24,10 @@ if (empty($err)) {
   $params = array(
     ":name" => $name,
     ":email" => $email,
-    ":password" => getSha1password($password),
+    ":password" =>  password_hash($password, PASSWORD_DEFAULT),
   );
   $stmt -> execute($params);
-  header('Location: '.SITE_URL.'login.php');
+  header('Location: login.html');
   exit;
 
 }

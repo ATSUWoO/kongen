@@ -8,7 +8,7 @@ require_once('session.php');
 <head>
   <meta charset="utf-8" />
   <title></title>
-<form  action="value.php" method="post">
+<form  action="input_value_html.php" method="post">
   <script src="https://code.jquery.com/jquery-1.9.0.min.js"></script>
   <script>
 
@@ -24,8 +24,13 @@ require_once('session.php');
         console.log(data);
 
         for (var i =0; i<data.length; i++) {
-          target.innerHTML += "<tr><td>"+data[i].q_id+"</td><td>"+data[i].question+"</td><td>"+data[i].reason+"</td><td>"+data[i].value+"</td><td><input type = 'range' name='eval"+data[i].id+ " ' min='1' max='5'></input></tr>"
-            }
+          target.innerHTML += "<tr><td>"+data[i].q_id+"</td><td>"+data[i].question+"</td><td>"+data[i].reason+"</td><td>"+data[i].value+"</td><td><input type = 'range' name='eval"+data[i].q_id+ " ' min='1' max='5'></input></tr>"
+          }
+          
+        for (var i = 0; i < data.length; i++) {
+            $_SESSION['"id"+$i+'] = data[i].q_id;
+          }
+
       //エラー処理
     }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
       alert('Error : ' + errorThrown);
@@ -36,8 +41,7 @@ require_once('session.php');
 
 </head>
 <body>
-  <h1>jQuery & Ajax通信を使ってPHPからJSON形式のデータを取得して表示する</h1>
-  //テーブル作成
+  <h1></h1>
   <table border = "2" id = "q_data">
     <tr>
       <th>id</th><th>question</th><th>reason</th><th>value</th><th>1　2　3　4　5</th>

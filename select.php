@@ -35,9 +35,11 @@ try
     while ($row = $stmt->fetchObject())
     {
         $users[] = array(
-            'question' => $row->question
+            'q_id' => $row->q_id
+            ,'question' => $row->question
             ,'reason'=> $row->reason
             ,'value'=> $row->value
+            ,'user_id' => $row->user_id
             );
     }
 

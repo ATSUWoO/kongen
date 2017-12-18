@@ -13,7 +13,7 @@ require_once('session.php');
   $(document).ready(function() {
     $.ajax({
       type: "POST",
-      url: "select.php",
+      url: "select_ascsort.php",
       dataType: "json",
     }).done(function(data, dataType) {
 
@@ -34,6 +34,9 @@ require_once('session.php');
     });
   });
 
+  // var sort = getElementById("sort");
+  // sort.addEventListener("click",sort);
+
 
   </script>
 </head>
@@ -47,9 +50,9 @@ require_once('session.php');
     </tr>
   </table>
 
-<input type="button" onclick="location.href ='select_ascsort_html.php'" value="評価順に昇順ソート">
-<input type="button" onclick="location.href ='select_descsort_html.php'" value="評価順に降順ソート">
-<input type="button" onclick="location.href ='select_idsort_html.php'" value="id　順にソート">
+  <input type="button" onclick="location.href ='select_ascsort_html.php'" value="評価順に昇順ソート">
+  <input type="button" onclick="location.href ='select_descsort_html.php'" value="評価順に降順ソート">
+  <input type="button" onclick="location.href ='select_idsort_html.php'" value="id　順にソート">
 
 </body>
 </html>
