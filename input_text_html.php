@@ -23,9 +23,25 @@ require_once('session.php');
           <option value="4">4</option>
           <option value="5">5</option>
         </select>
-        <button type="submit" name="button" value ='send'>自己評価</button>
+        <button id = "eval" type="submit"  name="button" value ='send'>自己評価</button>
       </select>
     </form>
-
+  <script src="https://code.jquery.com/jquery-1.9.0.min.js"></script>
+  <script type="text/javascript">
+//notification発動！
+$('#eval').on('click', notification);
+function notification()
+ {
+    
+    Notification.requestPermission();
+    var options = {
+        body : "Mr KONGEN",
+        icon : './kongen2.JPG'
+    }
+    var n = new Notification("投稿ありがとう！！！！！",options);
+    // タイムアウト設定
+    setTimeout(n.close.bind(n), 5000);
+}
+  </script>
   </body>
 </html>

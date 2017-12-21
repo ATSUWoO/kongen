@@ -6,7 +6,7 @@ require_once('session.php');
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <title></title>
+  <title>IDソート</title>
 
   <script src="https://code.jquery.com/jquery-1.9.0.min.js"></script>
   <script>
@@ -41,7 +41,7 @@ require_once('session.php');
   </script>
 </head>
 <body>
-  <h1></h1>
+  <h1>IDソート</h1>
   <ul id="content"></ul>
 
   <table border = "2" id = "q_data">

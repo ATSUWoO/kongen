@@ -1,19 +1,13 @@
 <?php
 
-require_once('session.php');
+//require_once('session.php');
 
-if (
-    !(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
-    && (!empty($_SERVER['SCRIPT_FILENAME']) && 'select.php' === basename($_SERVER['SCRIPT_FILENAME']))
-    )
+if (!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')&& (!empty($_SERVER['SCRIPT_FILENAME']) && 'select.php' === basename($_SERVER['SCRIPT_FILENAME'])))
 {
     die ('このページは直接ロードしないでください。');
 }
-// 接続文字列 (PHP5.3.6から文字コードが指定できるようになりました)
 $dsn = 'mysql:dbname=sample_db;host = 127.0.0.1;charset=utf8';
-// ユーザ名
 $user = 'root';
-// パスワード
 $password = 'root';
 try
 {
@@ -27,12 +21,11 @@ try
     // 取得したデータを配列に格納
     while ($row = $stmt->fetchObject())
     {
-        $users[] = array(
+        $users[] = array
+        (
             'q_id' => $row->q_id
             ,'question' => $row->question
-            ,'reason'=> $row->reason
-            ,'value'=> $row->value
-            );
+        );
     }
     $data = json_encode($users, JSON_UNESCAPED_UNICODE);
     print_r($data);
