@@ -6,7 +6,7 @@ require_once('session.php');
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <title>IDソート</title>
+  <title>ID昇順ソート</title>
 
   <script src="https://code.jquery.com/jquery-1.9.0.min.js"></script>
   <script>
@@ -25,7 +25,7 @@ require_once('session.php');
       var target = document.getElementById("q_data");
       console.log(typeof(target));
       for (var i =0; i<data.length; i++) {
-        target.innerHTML += "<tr><td>"+data[i].q_id+"</td><td>"+data[i].question+"</td><td>"+data[i].reason+"</td><td>"+data[i].value+"</td><td>"+data[i].user_id+"</td></tr>"
+        target.innerHTML += "<tr><td>"+data[i].q_id+"</td><td>"+data[i].question+"</td><td>"+data[i].user_id+"</td></tr>"
           }
 
     }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
@@ -41,7 +41,7 @@ require_once('session.php');
   </script>
 </head>
 <body>
-  <h1>IDソート</h1>
+  <h1>ID昇順ソート</h1>
   <ul id="content"></ul>
 
   <table border = "2" id = "q_data">
@@ -50,9 +50,10 @@ require_once('session.php');
     </tr>
   </table>
 
-  <input type="button" onclick="location.href ='select_ascsort_html.php'" value="評価順に昇順ソート">
-  <input type="button" onclick="location.href ='select_descsort_html.php'" value="評価順に降順ソート">
-  <input type="button" onclick="location.href ='select_idsort_html.php'" value="id　順にソート">
-
+  <!-- <input type="button" onclick="location.href ='select_ascsort_html.php'" value="評価順に昇順ソート">
+  <input type="button" onclick="location.href ='select_descsort_html.php'" value="評価順に降順ソート"> -->
+  <input type="button" onclick="location.href ='select_idsort_html.php'" value="id昇順ソート">
+  <input type="button" onclick="location.href ='select_timesort_asc_html.php'" value="時間昇順ソート">
+  <input type="button" onclick="location.href ='select_timesort_desc_html.php'" value="時間降順ソート">
 </body>
 </html>

@@ -28,7 +28,7 @@ try
     $dbh = new PDO($dsn, $user, $password);
 
     // 'users' テーブルのデータを取得する
-    $sql = 'select * from sample_tbl order by value asc';
+    $sql = 'select * from sample_tbl order by value desc';
     $stmt = $dbh->query($sql);
 
     // 取得したデータを配列に格納

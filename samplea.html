@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="https://code.jquery.com/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript">
+    $.ajax({
+        type: "POST",
+        url: "samplea.php",
+        data:{'page':'2'},
+    }).done(function(data, dataType) {
+        //受け取れた時の処理
+        console.log(data);
+      //エラー処理
+    }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+      alert('Error : ' + errorThrown);
+    });
+
+
+
+    </script>
+
+  </body>
+</html>

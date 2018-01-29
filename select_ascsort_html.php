@@ -7,7 +7,8 @@ require_once('session.php');
 <head>
   <meta charset="utf-8" />
   <title>昇順ソート</title>
-
+  <br>
+      <a href="home_html.php">ホーム画面へ</a><br>
   <script src="https://code.jquery.com/jquery-1.9.0.min.js"></script>
   <script>
   $(document).ready(function() {
@@ -24,9 +25,10 @@ require_once('session.php');
       var $content = $('#content');
       var target = document.getElementById("q_data");
       console.log(typeof(target));
-      for (var i =0; i<data.length; i++) {
-        target.innerHTML += "<tr><td>"+data[i].q_id+"</td><td>"+data[i].question+"</td><td>"+data[i].reason+"</td><td>"+data[i].value+"</td><td>"+data[i].user_id+"</td></tr>"
-          }
+      for (var i =0; i<data.length; i++)
+      {
+        target.innerHTML += "<tr><td>"+data[i].q_id+"</td><td>"+data[i].question+"</td><td>"+data[i].user_id+"</td></tr>"
+      }
 
     }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
       alert('Error : ' + errorThrown);
@@ -46,7 +48,7 @@ require_once('session.php');
 
   <table border = "2" id = "q_data">
     <tr>
-      <th>q_id</th><th>question</th><th>reason</th><th>value</th><th>user_id</th>
+      <th>q_id</th><th>question</th><th>user_id</th>
     </tr>
   </table>
 

@@ -28,7 +28,7 @@ try
     $dbh = new PDO($dsn, $user, $password);
 
     // 'users' テーブルのデータを取得する
-    $sql = 'select * from sample_tbl order by value asc';
+    $sql = 'select * from sample_tbl order by time';
     $stmt = $dbh->query($sql);
 
     // 取得したデータを配列に格納
@@ -40,7 +40,7 @@ try
             ,'reason'=> $row->reason
             ,'value'=> $row->value
             ,'user_id' => $row->user_id
-        );
+            );
     }
 
     $data = json_encode($users, JSON_UNESCAPED_UNICODE);

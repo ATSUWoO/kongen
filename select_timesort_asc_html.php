@@ -8,14 +8,14 @@ require_once('session.php');
   <br>
       <a href="home_html.php">ホーム画面へ</a><br>
   <meta charset="utf-8" />
-  <title>IDソート</title>
+  <title>時間昇順ソート</title>
 
   <script src="https://code.jquery.com/jquery-1.9.0.min.js"></script>
   <script>
   $(document).ready(function() {
     $.ajax({
       type: "POST",
-      url: "select_descsort.php",
+      url: "select_timesort_asc.php",
       dataType: "json",
     }).done(function(data, dataType) {
 
@@ -43,18 +43,21 @@ require_once('session.php');
   </script>
 </head>
 <body>
-  <h1>IDソート</h1>
+  <h1>時間昇順ソート</h1>
   <ul id="content"></ul>
 
   <table border = "2" id = "q_data">
     <tr>
-      <th>q_id</th><th>question</th><th>user_id</th>
+      <th>q_id</th><th>question</th><th>reason</th><th>value</th><th>user_id</th>
     </tr>
   </table>
 
-  <input type="button" onclick="location.href ='select_ascsort_html.php'" value="評価順に昇順ソート">
-  <input type="button" onclick="location.href ='select_descsort_html.php'" value="評価順に降順ソート">
-  <input type="button" onclick="location.href ='select_idsort_html.php'" value="id　順にソート">
+  <!-- <input type="button" onclick="location.href ='select_ascsort_html.php'" value="評価順に昇順ソート">
+  <input type="button" onclick="location.href ='select_descsort_html.php'" value="評価順に降順ソート"> -->
+  <input type="button" onclick="location.href ='select_idsort_html.php'" value="id昇順ソート">
+  <input type="button" onclick="location.href ='select_timesort_asc_html.php'" value="時間昇順ソート">
+  <input type="button" onclick="location.href ='select_timesort_desc_html.php'" value="時間降順ソート">
+
 
 </body>
 </html>

@@ -16,19 +16,18 @@ try
     // DBに接続
     $dbh = new PDO($dsn, $user, $password);
     // 'users' テーブルのデータを取得する
-    $sql = 'select * from sample_tbl';
+    $sql = 'select * from self_eval_tbl';
     $stmt = $dbh->query($sql);
     // 取得したデータを配列に格納
     while ($row = $stmt->fetchObject())
     {
         $users[] = array(
-            'q_id' => $row->q_id
-            ,'question' => $row->question
-            ,'user_id' => $row->user_id
+            'user_id' => $row->user_id
+            ,'eval_id' => $row->eval_id
+            ,'q_id' => $row->q_id
             ,'reason' => $row->reason
-            ,'eval' => $row->eval
+            ,'value' => $row->value
             ,'time' => $row->time
-            ,'num' => $row->num
             ,'detail' => $row->detail
             );
     }
