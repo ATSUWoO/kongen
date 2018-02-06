@@ -1,6 +1,5 @@
 <?php
 require_once('session.php');
-
 ?>
 
 <!DOCTYPE html>
@@ -28,13 +27,11 @@ require_once('session.php');
   var date = new Date() ;
   var a = date.getTime() ;
   var b = Math.floor( a / 1000 ) ;
-
   $.ajax({
       type: "POST",
       url: "get_detail.php",
       dataType: "json",
       async:false,
-
     }).done(function(data, dataType)
     {
       if(data == null) alert('データが0件でした');
@@ -53,7 +50,6 @@ require_once('session.php');
     {
     alert('Error : ' + errorThrown);
     });
-
   $.ajax({
       type: "POST",
       url: "value.php",
@@ -63,7 +59,6 @@ require_once('session.php');
     {
       if(data == null) alert('データが0件でした');
       var target = document.getElementById("q_data");
-
 　　　//reasonをq_listに入れる作業
       for (var i = 0; i < get_detail.length; i++)
       {
@@ -89,17 +84,14 @@ require_once('session.php');
     {
     alert('Error : ' + errorThrown);
     });
-
     $('#send').on('click',function()
     {
       for (var i in q_list) {
-      console.log(i);
       eval = document.getElementById("eval"+q_list[i].q_id).value;
       reason = document.getElementById("reason"+q_list[i].q_id).value;
-
       q_list[i].eval = eval;
       q_list[i].reason = reason;
-      q_list[3].num = i;
+      }
       send_data = JSON.stringify(q_list);
 
     $.ajax({
@@ -114,9 +106,8 @@ require_once('session.php');
      {
       alert('Error : ' + errorThrown);
      });
-   }
-    });
 
+    });
     $('#send').on('click', notification);
     function notification()
   　{
@@ -128,7 +119,6 @@ require_once('session.php');
     var n = new Notification("自己評価を登録しました",options);
     setTimeout(n.close.bind(n), 5000);
     }
-
   </script>
 </body>
 </html>

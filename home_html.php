@@ -34,6 +34,9 @@ require_once('session.php');
               <td><a href="input_about_question_html.php">良い問いとは悪い問いとは</a></td>
             </tr>
             <tr>
+              <td><a href="select_html.php">これまでに投稿された問い</a></td>
+            </tr>
+            <tr>
               <td><a href="logout.php">ログアウト</a></td>
             </tr>
           </table>

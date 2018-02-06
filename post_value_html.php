@@ -92,13 +92,11 @@ require_once('session.php');
       $('#send').on('click',function()
       {
         for (var i in q_list) {
-        console.log(i);
         eval = document.getElementById("eval"+q_list[i].q_id).value;
         reason = document.getElementById("reason"+q_list[i].q_id).value;
-
         q_list[i].eval = eval;
         q_list[i].reason = reason;
-        q_list[3].num = i;
+      }
         send_data = JSON.stringify(q_list);
 
       $.ajax({
@@ -113,7 +111,7 @@ require_once('session.php');
        {
         alert('Error : ' + errorThrown);
        });
-     }
+
       });
 
       $('#send').on('click', notification);
