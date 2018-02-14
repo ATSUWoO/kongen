@@ -40,7 +40,7 @@ require_once('session.php');
       for (var i =0; i<data.length; i++)
       {
         //直近の１週間に投稿されたものを表示
-        if (data[i].time > b - (7 * 24 * 60 * 60) && data[i].time <= b)
+        if (data[i].time > b - (8 * 24 * 60 * 60) && data[i].time <= b)
         {
           get_detail[j] = data[i];
           j++;
@@ -74,7 +74,7 @@ require_once('session.php');
       {
         console.log(data[i]);
         //直近の１週間に投稿されたものを表示
-        if (data[i].time > b - (7 * 24 * 60 * 60) && data[i].time <= b)
+        if (data[i].time > b - (8 * 24 * 60 * 60) && data[i].time <= b)
         {
             target.innerHTML += "<tr><td >"+data[i].q_id+"</td><td>"+data[i].question+"</td><td>"+data[i].detail+"</td><td><input type = 'range' id='eval"+data[i].q_id+ "' min='1' max='5'></input></td><td><textarea id='reason"+data[i].q_id+ "' rows='10' cols='100'　id = 't1'　>⇦の評価にした理由を投稿してください</textarea></td></tr>";
             q_list[i] = data[i];
