@@ -1,57 +1,74 @@
-
 <?php
 
-// Ajax通信ではなく、直接URLを叩かれた場合はエラーメッセージを表示
-if (
-    !(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest')
-    && (!empty($_SERVER['SCRIPT_FILENAME']) && 'select.php' === basename($_SERVER['SCRIPT_FILENAME']))
-    )
-{
-    die ('このページは直接ロードしないでください。');
+/**
+ * 1週間分の問い一覧のJSONを返す
+ */
+require_once('redirect.php');
+require_once('./Database/DataSelector.php');
+
+$data_type = $_GET['type'];
+
+if ($data_type == "all"){
+  /**
+   * データをすべて表示する場合
+   */
+  
+  // Timestamp ?
+  $timestamp = time();
+  $last_week_time = $timestamp - (8 * 24 * 60 * 60);
+
+  // データ取得
+  $selector = new DataSelector;
+
+  // note：いつかプリペアードステートメントに置き換えるべき
+  // 1週間分の問い一覧を取得するクエリの発行(投稿された問いとその自己評価テーブルを結合して検索)
+  $sql = "SELECT sample_tbl.q_id, sample_tbl.question, sample_tbl.user_id, sample_tbl.time, self_eval_tbl.reason, self_eval_tbl.value FROM sample_tbl left join self_eval_tbl on sample_tbl.q_id = self_eval_tbl.q_id WHERE sample_tbl.time >= ".$last_week_time;
+
+  $stmt = $selector->getStatement($sql);
+  $user_json = $selector->getJson($stmt, 'q_id', 'question', 'user_id', 'reason', 'value', 'time');
+
+  print_r($user_json);
+} else if ($data_type == "pre_eval"){
+  /**
+   * 事前評価のデータ
+   */
+  
+  $timestamp = time();
+  $last_week_time = $timestamp - (8 * 24 * 60 * 60);
+  $user_id = $_SESSION['id'];
+  
+  // メインデータ取得
+  $selector_for_main = new DataSelector;
+
+  // note：いつかプリペアードステートメントに置き換えるべき
+  // 1週間分の問い一覧の中から，既に登録済みの評価も加えて取得
+  $sql = "SELECT sample_tbl.q_id, sample_tbl.question, sample_tbl.time, self_eval_tbl.reason AS self_eval_reason , self_eval_tbl.value AS self_eval_value, pre_eval_tbl.reason AS pre_eval_reason, pre_eval_tbl.value AS pre_eval_value FROM sample_tbl left join self_eval_tbl on sample_tbl.q_id = self_eval_tbl.q_id left join pre_eval_tbl on sample_tbl.q_id = pre_eval_tbl.q_id WHERE sample_tbl.time >= {$last_week_time}";
+
+  $stmt = $selector_for_main->getStatement($sql);
+  $user_json = $selector_for_main->getJson($stmt, 'q_id', 'question', 'self_eval_reason', 'self_eval_value', 'pre_eval_reason', 'pre_eval_value', 'time');
+
+  print_r($user_json);
+
+} else if ($data_type == "post_eval"){
+  /**
+   * 事後評価のデータ
+   */
+  
+  $timestamp = time();
+  $last_week_time = $timestamp - (8 * 24 * 60 * 60);
+  $user_id = $_SESSION['id'];
+  
+  // メインデータ取得
+  $selector_for_main = new DataSelector;
+
+  // note：いつかプリペアードステートメントに置き換えるべき
+  // 1週間分の問い一覧の中から，既に登録済みの評価も加えて取得
+  $sql = "SELECT sample_tbl.q_id, sample_tbl.question, sample_tbl.time, self_eval_tbl.reason AS self_eval_reason , self_eval_tbl.value AS self_eval_value, post_eval_tbl.reason AS post_eval_reason, post_eval_tbl.value AS post_eval_value FROM sample_tbl left join self_eval_tbl on sample_tbl.q_id = self_eval_tbl.q_id left join post_eval_tbl on sample_tbl.q_id = post_eval_tbl.q_id WHERE sample_tbl.time >= {$last_week_time}";
+
+  $stmt = $selector_for_main->getStatement($sql);
+  $user_json = $selector_for_main->getJson($stmt, 'q_id', 'question', 'self_eval_reason', 'self_eval_value', 'post_eval_reason', 'post_eval_value', 'time');
+
+  print_r($user_json);
+
 }
-
-// 接続文字列 (PHP5.3.6から文字コードが指定できるようになりました)
-$dsn = 'mysql:dbname=sample_db;host = 127.0.0.1;charset=utf8';
-
-// ユーザ名
-$user = 'root';
-
-// パスワード
-$password = 'root';
-
-try
-{
-    // nullで初期化
-    $users = null;
-
-    // DBに接続
-    $dbh = new PDO($dsn, $user, $password);
-
-    // 'users' テーブルのデータを取得する
-    $sql = 'select * from sample_tbl';
-    $stmt = $dbh->query($sql);
-
-    // 取得したデータを配列に格納
-    while ($row = $stmt->fetchObject())
-    {
-        $users[] = array(
-            'q_id' => $row->q_id
-            ,'question' => $row->question
-            ,'reason'=> $row->reason
-            ,'value'=> $row->value
-            ,'user_id' => $row->user_id
-            );
-    }
-
-    $data = json_encode($users, JSON_UNESCAPED_UNICODE);
-    print_r($data);
-    //file_put_contents("sample.txt", $res);
-    return $data;
-}
-catch (PDOException $e)
-{
-    // 例外処理
-    die('Error:' . $e->getMessage());
-}
-
 ?>

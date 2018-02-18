@@ -1,0 +1,64 @@
+html {
+  width: 100%;
+}
+
+body {
+  width: 100%;
+  background: url(../img/loghouse.jpg) center center / cover no-repeat fixed;
+}
+
+div.wrapper {
+  max-width: 920px;
+  width: auto;
+  margin: 0 auto;
+  background-color:  rgb(255, 255, 255);
+  text-align: center;
+
+}
+
+div.leftArea {
+  width: calc(40%-36px);
+  float: left;
+}
+
+div.rightArea {
+  width: calc(60%-36px);
+  float: left;
+}
+
+
+div.header {
+  height: 10%;
+}
+
+width: 100%;
+}
+
+table tr th,
+table tr td {
+padding: 0 10px;
+border: 1px solid #DDD;
+vertical-align: middle;
+}
+
+table tr th {
+text-align: center;
+font-weight: bold;
+}
+
+table tr:nth-child(n+2):hover{
+    cursor: default;
+    background: #f2f2f2;
+}
+
+table tr:nth-child(odd) td {
+    background: #bae4f6;
+}
+
+table tr:nth-child(even) td {
+    background: #d1cbeb;
+}
+
+table tr:nth-child(odd) th {
+    background: #f7f7f7;
+}
